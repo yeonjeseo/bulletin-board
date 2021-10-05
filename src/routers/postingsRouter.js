@@ -4,13 +4,15 @@ import {
   patchPostings,
   deletePostings,
   readAllPostings,
+  postComment,
 } from "../controller/postingController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
-const commentRouter = express.Router();
+const postingRouter = express.Router();
 
-commentRouter.get("", readAllPostings);
-commentRouter.post("", authMiddleware, postPostings);
-commentRouter.patch("/:id", patchPostings);
-commentRouter.delete("/:id", deletePostings);
+postingRouter.get("", readAllPostings);
+postingRouter.post("", authMiddleware, postPostings);
+postingRouter.patch("/:id", patchPostings);
+postingRouter.delete("/:id", deletePostings);
+postingRouter.post("/:id/comments", authMiddleware, postComment);
 
-export default commentRouter;
+export default postingRouter;

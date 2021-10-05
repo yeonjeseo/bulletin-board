@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/static/css/style.css">
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Font Awesome -->
+
   <!-- JavaScript -->
   <script defer src="/static/js/detail.js"></script>
+  <script>
+    // Reply box popup JS
+    $(document).ready(function(){
+      $(".reply-popup").click(function(){
+        $(".reply-box").toggle();
+      });
+    });
+    </script>
   <title>상세페이지</title>
 </head>
+
 <body>
   <nav id="navbar">
     <div class="navbar__logo">
@@ -31,7 +44,7 @@
       </li>
       <li class="navbar__menu__item">
         <a href="/signup">회원가입</a>
-    </li>
+      </li>
     </ul>
   </nav>
 
@@ -40,13 +53,109 @@
       <div class="card mb-3">
         <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
-          <h5 class="card-title" id="posting-title">제목 : <%= post.title %></h5>
-          <p class="card-text" id="posting-author">작성자 : <%= post.author %></p>
-          <p class="card-text" id="posting-comment"><%= post.comment %></p>
-          <p class="card-text"><small class="text-muted" id="posting-createdAt"><%= post.createdAt %></small></p>
+          <h5 class="card-title" id="posting-title">제목 : <%= post.title %>
+          </h5>
+          <p class="card-text" id="posting-author">작성자 : <%= post.author %>
+          </p>
+          <p class="card-text" id="posting-comment">
+            <%= post.comment %>
+          </p>
+          <p class="card-text"><small class="text-muted" id="posting-createdAt">
+              <%= post.createdAt %>
+            </small></p>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="comments">
+            <div class="comment-box add-comment">
+              <span class="commenter-pic">
+                <img src="/static/img/user-icon.png" class="img-fluid">
+              </span>
+              <span class="commenter-name">
+                <input type="text" placeholder="Add a public comment" name="Add Comment" id="commentText">
+                <button type="submit" class="btn btn-default" id="submitComment">Comment</button>
+                <button type="cancel" class="btn btn-default">Cancel</button>
+              </span>
+            </div>
+            <div class="comment-box">
+              <span class="commenter-pic">
+                <img src="/static/img/user-icon.png" class="img-fluid">
+              </span>
+              <span class="commenter-name">
+                <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+              </span>
+              <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet
+                ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+              <div class="comment-meta">
+                <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
+                <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i>
+                  Reply</button>
+              </div>
+              <div class="comment-box add-comment reply-box">
+                <span class="commenter-pic">
+                  <img src="/static/img/user-icon.png" class="img-fluid">
+                </span>
+                <span class="commenter-name">
+                  <input type="text" placeholder="Add a public reply" name="Add Comment">
+                  <button type="submit" class="btn btn-default">Reply</button>
+                  <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                </span>
+              </div>
+            </div>
+            <div class="comment-box">
+              <span class="commenter-pic">
+                <img src="/static/img/user-icon.png" class="img-fluid">
+              </span>
+              <span class="commenter-name">
+                <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+              </span>
+              <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet
+                ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+              <div class="comment-meta">
+                <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
+                <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+              </div>
+              <div class="comment-box replied">
+                <span class="commenter-pic">
+                  <img src="/static/img/user-icon.png" class="img-fluid">
+                </span>
+                <span class="commenter-name">
+                  <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+                </span>
+                <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet
+                  ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+                <div class="comment-meta">
+                  <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                  <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
+                  <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                </div>
+                <div class="comment-box replied">
+                  <span class="commenter-pic">
+                    <img src="/static/img/user-icon.png" class="img-fluid">
+                  </span>
+                  <span class="commenter-name">
+                    <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+                  </span>
+                  <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit
+                    amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+                  <div class="comment-meta">
+                    <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                    <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
+                    <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 </body>
+
 </html>

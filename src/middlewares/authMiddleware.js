@@ -17,6 +17,7 @@ export const authMiddleware = async (req, res, next) => {
     //decode token
     const { userId } = jwt.verify(tokenValue, SECRET_KET);
     const user = await User.findById(userId);
+
     //send user via res.locals
     res.locals.user = user;
     next();

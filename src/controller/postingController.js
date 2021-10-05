@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import Comment from "../models/Comment.js";
 import bcrypt from "bcrypt";
 
 export const home = async (req, res) => {
@@ -106,5 +107,30 @@ export const deletePostings = async (req, res) => {
     return res
       .status(400)
       .send({ result: "DELETE failure", msg: "비밀번호가 일치하지 않습니다." });
+  }
+};
+
+//댓글 만들기
+export const postComment = async (req, res) => {
+  //1. 필요한 데이터 받기
+  const {
+    body: { text },
+    params: { id: postingId },
+  } = req;
+  const userId = res.locals.user._id;
+
+  const comment = {
+    ownedPosting: postingId,
+    author: userId,
+    text,
+  };
+  //2. Comment 모델에 저장
+  try {
+    const newComment = await Comment.create(comment);
+
+    console.log(await newComment.populate());
+    return res.status(200).send({ msg: "댓글 작성 완료!" });
+  } catch (error) {
+    return res.status(400).send({ msg: "댓글 작성 실패 ㅠㅠ" });
   }
 };
