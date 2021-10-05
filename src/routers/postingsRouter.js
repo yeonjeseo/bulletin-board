@@ -6,7 +6,6 @@ import {
   readAllPostings,
 } from "../controller/postingController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
-
 const commentRouter = express.Router();
 
 commentRouter.get("", readAllPostings);

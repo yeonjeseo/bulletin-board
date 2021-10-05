@@ -1,5 +1,3 @@
-// import getSelf from "./static/js/common/auth.js";
-
 const btnSubmit = document.getElementById("login");
 
 const handleSubmit = async (e) => {

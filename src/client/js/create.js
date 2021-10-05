@@ -1,19 +1,16 @@
 const btnSubmit = document.getElementById("create");
-const authorInput = document.getElementById("input-author");
 const titleInput = document.getElementById("input-title");
 const commentInput = document.getElementById("input-comment");
 const passwordInput = document.getElementById("input-password");
 
 const handleSubmit = async (e) => {
   const title = titleInput.value;
-  const author = authorInput.value;
   const comment = commentInput.value;
   const password = passwordInput.value;
 
-  if (title !== "" && author !== "" && comment !== "" && password !== "") {
+  if (title !== "" && comment !== "" && password !== "") {
     const commentObj = {
       title,
-      author,
       comment,
       password,
     };
@@ -39,4 +36,19 @@ const handleSubmit = async (e) => {
   }
 };
 
+const getUser = async () => {
+  const response = await fetch("/users/me", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  if (response.status === 400) {
+    window.alert("로그인이 필요합니다.");
+    location.href = "/login";
+  }
+};
+window.addEventListener("DOMContentLoaded", getUser);
 btnSubmit.addEventListener("click", handleSubmit);

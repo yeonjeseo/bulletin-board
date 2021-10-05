@@ -4,7 +4,6 @@ const SECRET_KET = "this is my secret key";
 
 export const authMiddleware = async (req, res, next) => {
   // get authorization from header
-  console.log(req.headers);
   const { authorization } = req.headers;
 
   // split auth type / auth value
@@ -22,7 +21,6 @@ export const authMiddleware = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (error) {
-    console.log(error);
     return res
       .status(400)
       .send({ msg: "토큰 값이 없음. 로그인 후 사용하세요." });

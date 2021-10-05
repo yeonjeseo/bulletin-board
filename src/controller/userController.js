@@ -80,7 +80,7 @@ export const postAuth = async (req, res) => {
   return res.status(200).send({ result: "success", msg: "로그인 완료", token });
 };
 
-const getMe = async (req, res) => {
+export const getMe = async (req, res) => {
   const { email, nickname } = res.locals.user;
   return res.status(200).send({
     email,

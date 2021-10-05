@@ -13,6 +13,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
     <!-- JavaScript -->
     <script defer src="/static/js/main.js"></script>
     <title>Document</title>
@@ -23,6 +25,8 @@
         <div class="navbar__logo">
             <a href="/">Home</a>
         </div>
+    <h4>이것은 게시판</h4>
+
         <ul class="navbar__menu">
             <li class="navbar__menu__item">
                 <a href="/comment">게시물 작성하기</a>
@@ -37,49 +41,29 @@
     </nav>
 
 
-    <div class="wrap">
-        <div>
-            <h1 class="title"> Filters </h1>
-
-            <div class="byUser">
-                <span class="title">All post by User : </span>
-                <select id="selUser">
-                    <option value=0>All</option>
-                </select>
-                <button type="button">Search </button>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="wrap">
-        <div>
-            <h1 class="title">Posts</h1>
-        </div>
-        <div class="reply" id="postContainer">
-            <div class="post">
-                <div class="card__typo">
-                    <div class="userName">
-                        <span>By: Leanne Graham</span>
+    <div class="py-5">
+        <div class="container">
+            <div class="row hidden-md-up" id="postContainer">
+                <div class="col-md-4 card__container">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Card title</h4>
+                            <h6 class="card-subtitle text-muted">여긴 작성자</h6>
+                            <span class="card-subtitle text-muted">언제 만들었는지?</span>
+                            <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
+                            <a href="#" class="card-link">상세페이지</a>
+                            <a href="#" class="card-link">편집하기</a>
+                        </div>
                     </div>
-                    <div class="title">
-                        sunt aut facere repellat provident occaecati excepturi optio reprehenderit
-                    </div>
-                    <p class="body">
-                        quia et suscipit
-                        suscipit recusandae consequuntur expedita et cum
-                        reprehenderit molestiae ut ut quas totam
-                        nostrum rerum est autem sunt rem eveniet architecto
-                    </p>
-                </div>
-                <div class="card__modify">
-                    <a href="/">
-                        <img class="modify-icon" src="/static/img/pencil.png" alt="">
-                    </a>
                 </div>
             </div>
         </div>
     </div>
+    
+</body>
+
+
+
 </body>
 
 </html>

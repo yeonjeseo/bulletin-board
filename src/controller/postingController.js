@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Post from "../models/Post.js";
 import bcrypt from "bcrypt";
 
@@ -10,16 +9,24 @@ export const getPostings = async (req, res) => {
   return res.render("create");
 };
 
+export const getEdit = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+  return res.render("edit", { post });
+};
+
 export const getDetail = async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
-  console.log(post);
+
   return res.render("detail", { post });
 };
 
 // CRUD : C
 export const postPostings = async (req, res) => {
-  const { title, author, comment } = req.body;
+  const { title, comment } = req.body;
+  const author = res.locals.user.username;
+  console.log(author);
   let password = req.body.password;
 
   password = await bcrypt.hash(password, 5);
@@ -39,6 +46,7 @@ export const postPostings = async (req, res) => {
 // CRUD : Read
 export const readAllPostings = async (req, res) => {
   const comments = await Post.find({}).sort({ createdAt: -1 });
+
   return res.status(200).send({ result: "READ all success", comments });
 };
 
@@ -62,14 +70,14 @@ export const patchPostings = async (req, res) => {
       });
       return res
         .status(200)
-        .send({ result: "UPDATE success", msg: "수정 완료되었습니다." });
+        .send({ result: "success", msg: "수정 완료되었습니다." });
     } catch (err) {
       return res.status(400).send({ result: "UPDATE failure", msg: err });
     }
   } else {
     return res
       .status(400)
-      .send({ result: "UPDATE failure", msg: "비밀번호가 일치하지 않습니다." });
+      .send({ result: "failure", msg: "비밀번호가 일치하지 않습니다." });
   }
 };
 
