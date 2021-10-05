@@ -1,13 +1,13 @@
-const btnSubmit = document.getElementById("signup");
+// import getSelf from "./static/js/common/auth.js";
+
+const btnSubmit = document.getElementById("login");
 
 const handleSubmit = async (e) => {
-  const username = document.getElementById("input-username").value;
   const email = document.getElementById("input-email").value;
   const password = document.getElementById("input-password").value;
-  const confirmPassword = document.getElementById("input-confirm").value;
 
-  const user = { username, email, password, confirmPassword };
-  const response = await fetch("/users", {
+  const user = { email, password };
+  const response = await fetch("/users/auth", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,12 +16,19 @@ const handleSubmit = async (e) => {
   });
 
   const result = await response.json();
+
   if (response.status === 200) {
+    localStorage.setItem("token", result.token);
+
     window.alert(result.msg);
+
     location.href = "/";
   } else {
+    localStorage.clear();
     window.alert(result.msg);
   }
 };
 
 btnSubmit.addEventListener("click", handleSubmit);
+
+console.log("여기는 로그인");

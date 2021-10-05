@@ -1,7 +1,7 @@
 const handleLoadContent = async () => {
   const parentNode = document.getElementById("postContainer");
 
-  const response = await fetch("/api/comment", {
+  const response = await fetch("/postings", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

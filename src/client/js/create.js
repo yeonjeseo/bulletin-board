@@ -17,18 +17,23 @@ const handleSubmit = async (e) => {
       comment,
       password,
     };
-    const response = await fetch("/api/comment", {
+    const response = await fetch("/postings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(commentObj),
     });
 
-    console.log(await response.json());
+    const result = await response.json();
     // 만약 정상적으로 끝나면... 조건 추가할 것
-    window.alert("제출이 완료되었습니다.");
-    location.href = "/";
+    if (response.status === 200) {
+      window.alert("제출이 완료되었습니다.");
+      location.href = "/";
+    } else {
+      window.alert(result.msg);
+    }
   } else {
     window.alert("모든 양식을 작성해주세요");
   }

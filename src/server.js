@@ -1,6 +1,7 @@
 import express from "express";
-import globalRouter from "./routers/rootRouter.js";
-import apiRouter from "./routers/apiRouter.js";
+import renderRouter from "./routers/renderRouter.js";
+import postingsRouter from "./routers/postingsRouter.js";
+import usersRouter from "./routers/usersRouter.js";
 import db from "./db.js";
 
 const app = express();
@@ -16,8 +17,9 @@ app.set("views", process.cwd() + "/views");
 // serve local files to virtual browser file system
 app.use("/static", express.static("client"));
 
-app.use("/", globalRouter);
-app.use("/api", apiRouter);
+app.use("/", renderRouter);
+app.use("/postings", postingsRouter);
+app.use("/users", usersRouter);
 
 const handleListening = () => {
   console.log(`Server listening on port http://localhost:${PORT}😀`);

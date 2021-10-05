@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- JavaScript -->
+  <script defer src="/static/js/login.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <nav id="navbar">
+    <div class="navbar__logo">
+      <a href="/">Home</a>
+    </div>
+    <ul class="navbar__menu">
+      <li class="navbar__menu__item">
+        <a href="/comment">게시물 작성하기</a>
+      </li>
+      <li class="navbar__menu__item">
+        <a href="/login">로그인</a>
+      </li>
+      <li class="navbar__menu__item">
+        <a href="/signup">회원가입</a>
+      </li>
+    </ul>
+  </nav>
+
+  <section>
+    <div class="wrap">
+      <label for="basic-url" class="form-label">eMail</label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="yourEmail@email.com" id="input-email">
+      </div>
+
+      <label for="basic-url" class="form-label">Password</label>
+      <div class="input-group mb-3">
+        <input type="text" id="input-password" class="form-control" placeholder="Password" height="500px">
+      </div>
+
+      <input class="btn btn-primary" id="login" type="submit" value="로그인">
+    </div>
+  </section>
+
+
+</body>
+
+</html>

@@ -1,3 +1,5 @@
+import getSelf from "./static/js/common/auth.js";
+
 const updateBtn = document.getElementById("submitUpdate");
 const deleteBtn = document.getElementById("submitDelete");
 
@@ -24,7 +26,7 @@ const handleUpdateSubmit = async () => {
 
   // $.ajax??????????
 
-  const response = await fetch(`/api/comment/${id}`, {
+  const response = await fetch(`/postings/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +46,7 @@ const handleUpdateSubmit = async () => {
 
 const handleDeleteSubmit = async () => {
   const password = document.getElementById("input-password").value;
-  const response = await fetch(`/api/comment/${id}`, {
+  const response = await fetch(`/postings/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

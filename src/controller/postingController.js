@@ -6,7 +6,7 @@ export const home = async (req, res) => {
   return res.render("main");
 };
 
-export const getComment = async (req, res) => {
+export const getPostings = async (req, res) => {
   return res.render("create");
 };
 
@@ -17,12 +17,8 @@ export const getDetail = async (req, res) => {
   return res.render("detail", { post });
 };
 
-export const getSignup = (req, res) => {
-  return res.render("signup");
-};
-
 // CRUD : C
-export const postComment = async (req, res) => {
+export const postPostings = async (req, res) => {
   const { title, author, comment } = req.body;
   let password = req.body.password;
 
@@ -41,13 +37,13 @@ export const postComment = async (req, res) => {
 };
 
 // CRUD : Read
-export const readAllComment = async (req, res) => {
+export const readAllPostings = async (req, res) => {
   const comments = await Post.find({}).sort({ createdAt: -1 });
   return res.status(200).send({ result: "READ all success", comments });
 };
 
 // CRUD : U
-export const patchComment = async (req, res) => {
+export const patchPostings = async (req, res) => {
   const { title, comment, password } = req.body;
   const { id } = req.params;
 
@@ -78,7 +74,7 @@ export const patchComment = async (req, res) => {
 };
 
 // CRUD : D
-export const deleteComment = async (req, res) => {
+export const deletePostings = async (req, res) => {
   const { password } = req.body;
   const { id } = req.params;
 

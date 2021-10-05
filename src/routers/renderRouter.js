@@ -1,17 +1,19 @@
 import express from "express";
 import {
   home,
-  getComment,
   getDetail,
-  getSignup,
-} from "../controller/controller.js";
+  getPostings,
+} from "../controller/postingController.js";
+import { getLogin, getSignup } from "../controller/userController.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
-rootRouter.get("/comment", getComment);
+rootRouter.get("/comment", getPostings);
 rootRouter.get("/comment/:id", getDetail);
 rootRouter.get("/signup", getSignup);
+rootRouter.get("/login", getLogin);
 
 // rootRouter.get("/comment", getPosting)
 
