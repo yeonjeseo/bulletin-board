@@ -20,33 +20,17 @@
   <script defer src="/static/js/detail.js"></script>
   <script>
     // Reply box popup JS
-    $(document).ready(function(){
-      $(".reply-popup").click(function(){
+    $(document).ready(function () {
+      $(".reply-popup").click(function () {
         $(".reply-box").toggle();
       });
     });
-    </script>
+  </script>
   <title>상세페이지</title>
 </head>
 
 <body>
-  <nav id="navbar">
-    <div class="navbar__logo">
-      <a href="/">Home</a>
-    </div>
-    <h4>이것은 게시판</h4>
-    <ul class="navbar__menu">
-      <li class="navbar__menu__item">
-        <a href="/comment">게시물 작성하기</a>
-      </li>
-      <li class="navbar__menu__item">
-        <a href="/login">로그인</a>
-      </li>
-      <li class="navbar__menu__item">
-        <a href="/signup">회원가입</a>
-      </li>
-    </ul>
-  </nav>
+  <%- include ('./partials/navbar.ejs') %>
 
   <main>
     <div class="wrap">
@@ -80,16 +64,22 @@
               </span>
             </div>
 
-            <% post.comments.forEach(function(comment){ %>
+            <% comments.forEach(function(comment){ %>
               <div class="comment-box">
                 <span class="commenter-pic">
                   <img src="/static/img/user-icon.png" class="img-fluid">
                 </span>
                 <span class="commenter-name">
-                  <span class="author"><%= comment.author %></span> 
-                  <span class="comment-time"><%= comment.createdAt %></span>
+                  <span class="author">
+                    <%= comment.author.username %>
+                  </span>
+                  <span class="comment-time">
+                    <%= comment.createdAt %>
+                  </span>
                 </span>
-                <p class="comment-txt more"><%= comment.text %></p>
+                <p class="comment-txt more">
+                  <%= comment.text %>
+                </p>
                 <div class="comment-meta">
                   <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
                   <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
@@ -108,52 +98,40 @@
                 </div>
               </div>
 
-            <% }) %>
-            <div class="comment-box">
-              <span class="commenter-pic">
-                <img src="/static/img/user-icon.png" class="img-fluid">
-              </span>
-              <span class="commenter-name">
-                <span href="#">Happy markuptag</span> <span class="comment-time">2 hours ago</span>
-              </span>
-              <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet
-                ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-              <div class="comment-meta">
-                <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
-                <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
-              </div>
-              <div class="comment-box replied">
-                <span class="commenter-pic">
-                  <img src="/static/img/user-icon.png" class="img-fluid">
-                </span>
-                <span class="commenter-name">
-                  <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
-                </span>
-                <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet
-                  ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-                <div class="comment-meta">
-                  <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                  <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
-                  <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
-                </div>
-                <div class="comment-box replied">
+              <% }) %>
+                <div class="comment-box">
                   <span class="commenter-pic">
                     <img src="/static/img/user-icon.png" class="img-fluid">
                   </span>
                   <span class="commenter-name">
-                    <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+                    <span href="#">Happy markuptag</span> <span class="comment-time">2 hours ago</span>
                   </span>
                   <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit
-                    amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+                    amet
+                    ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
                   <div class="comment-meta">
                     <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
                     <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
                     <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
                   </div>
+                  <div class="comment-box replied">
+                    <span class="commenter-pic">
+                      <img src="/static/img/user-icon.png" class="img-fluid">
+                    </span>
+                    <span class="commenter-name">
+                      <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+                    </span>
+                    <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit
+                      amet
+                      ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+                    <div class="comment-meta">
+                      <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                      <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                        149</button>
+                      <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

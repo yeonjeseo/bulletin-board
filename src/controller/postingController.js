@@ -18,14 +18,22 @@ export const getEdit = async (req, res) => {
 };
 
 export const getDetail = async (req, res) => {
+  //post의 id를 가져옴
   const { id } = req.params;
-  // const post = await Post.findById(id).populate("comments");
-  // {path: 'Members', options: { sort: { 'created_at': -1 } } }
-  const post = await Post.findById(id).populate({
-    path: "comments",
-    options: { sort: { createdAt: -1 } },
-  });
-  return res.render("detail", { post });
+  //post를 검색하고 거기 딸려있는 comments를 populate함.
+  const post = await Post.findById(id);
+
+  //populate한 뒤에 내부 속성을 활용해서 정렬하기
+  // const post = await Post.findById(id).populate({
+  //   path: "comments",
+  //   options: { sort: { createdAt: -1 } },
+  // });
+
+  const comments = await Comment.find({ ownedPosting: id })
+    .populate("author")
+    .sort({ createdAt: -1 });
+  console.log(comments);
+  return res.render("detail", { post, comments });
 };
 
 // CRUD : C

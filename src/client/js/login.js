@@ -27,6 +27,12 @@ const handleSubmit = async (e) => {
   }
 };
 
+const isLoggedIn = () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    window.alert("이미 로그인 되어있습니다. 메인 페이지로 이동합니다.");
+    location.href = "/";
+  }
+};
+window.addEventListener("DOMContentLoaded", isLoggedIn);
 btnSubmit.addEventListener("click", handleSubmit);
-
-console.log("여기는 로그인");
