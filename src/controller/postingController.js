@@ -1,4 +1,5 @@
 import Post from "../models/Post.js";
+import User from "../models/User.js";
 import Comment from "../models/Comment.js";
 import bcrypt from "bcrypt";
 
@@ -18,14 +19,18 @@ export const getEdit = async (req, res) => {
 
 export const getDetail = async (req, res) => {
   const { id } = req.params;
-  const post = await Post.findById(id);
-
+  // const post = await Post.findById(id).populate("comments");
+  // {path: 'Members', options: { sort: { 'created_at': -1 } } }
+  const post = await Post.findById(id).populate({
+    path: "comments",
+    options: { sort: { createdAt: -1 } },
+  });
   return res.render("detail", { post });
 };
 
 // CRUD : C
 export const postPostings = async (req, res) => {
-  const { title, comment } = req.body;
+  const { title, text } = req.body;
   const author = res.locals.user.username;
   console.log(author);
   let password = req.body.password;
@@ -35,7 +40,7 @@ export const postPostings = async (req, res) => {
   const post = {
     title,
     author,
-    comment,
+    text,
     password,
   };
 
@@ -46,14 +51,14 @@ export const postPostings = async (req, res) => {
 
 // CRUD : Read
 export const readAllPostings = async (req, res) => {
-  const comments = await Post.find({}).sort({ createdAt: -1 });
+  const postings = await Post.find({}).sort({ createdAt: -1 });
 
-  return res.status(200).send({ result: "READ all success", comments });
+  return res.status(200).send({ result: "READ all success", postings });
 };
 
 // CRUD : U
 export const patchPostings = async (req, res) => {
-  const { title, comment, password } = req.body;
+  const { title, text, password } = req.body;
   const { id } = req.params;
 
   const post = await Post.findById(id);
@@ -66,7 +71,7 @@ export const patchPostings = async (req, res) => {
       await Post.updateOne(post, {
         $set: {
           title,
-          comment,
+          text,
         },
       });
       return res
@@ -110,6 +115,7 @@ export const deletePostings = async (req, res) => {
   }
 };
 
+// 댓글 CRUD
 //댓글 만들기
 export const postComment = async (req, res) => {
   //1. 필요한 데이터 받기
@@ -124,13 +130,28 @@ export const postComment = async (req, res) => {
     author: userId,
     text,
   };
-  //2. Comment 모델에 저장
   try {
+    //2. Comment 모델에 저장
     const newComment = await Comment.create(comment);
+    const commentId = newComment._id;
 
-    console.log(await newComment.populate());
+    //3. 해당 user의 comments에 푸시
+    await User.findByIdAndUpdate(userId, {
+      $push: { comments: commentId },
+    });
+
+    //4. Post 모델의 comment에 푸시
+    await Post.findByIdAndUpdate(postingId, {
+      $push: { comments: commentId },
+    });
+
+    // console.log(await newComment.populate("ownedPosting"));
     return res.status(200).send({ msg: "댓글 작성 완료!" });
   } catch (error) {
     return res.status(400).send({ msg: "댓글 작성 실패 ㅠㅠ" });
   }
+};
+
+export const getComments = async (req, res) => {
+  console.log(req.params);
 };

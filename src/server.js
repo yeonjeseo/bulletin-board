@@ -18,8 +18,8 @@ app.set("views", process.cwd() + "/views");
 app.use("/static", express.static("client"));
 
 app.use("/", renderRouter);
-app.use("/postings", postingsRouter);
-app.use("/users", usersRouter);
+app.use("/api/postings", postingsRouter);
+app.use("/api/users", usersRouter);
 
 const handleListening = () => {
   console.log(`Server listening on port http://localhost:${PORT}😀`);

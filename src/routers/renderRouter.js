@@ -10,9 +10,9 @@ import { getLogin, getSignup } from "../controller/userController.js";
 const rootRouter = express.Router();
 
 rootRouter.get("/", home);
-rootRouter.get("/comments", getPostings);
-rootRouter.get("/comments/:id/detail", getDetail);
-rootRouter.get("/comments/:id/edit", getEdit);
+rootRouter.get("/postings", getPostings);
+rootRouter.get("/postings/:id/detail", getDetail);
+rootRouter.get("/postings/:id/edit", getEdit);
 rootRouter.get("/signup", getSignup);
 rootRouter.get("/login", getLogin);
 

@@ -5,7 +5,7 @@ const url = window.location.pathname;
 const postingId = url.split("/")[2];
 
 const getUser = async () => {
-  const response = await fetch("/users/me", {
+  const response = await fetch("/api/users/me", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const handleSubmitComment = async () => {
 
   console.log(postingId);
   // 서버에 요청
-  const response = await fetch(`/postings/${postingId}/comments`, {
+  const response = await fetch(`/api/postings/${postingId}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

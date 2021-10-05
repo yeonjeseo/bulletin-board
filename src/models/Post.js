@@ -5,7 +5,8 @@ const postSchema = new mongoose.Schema({
   author: { type: String, required: true },
   createdAt: { type: Date, default: Date.now, required: true },
   password: { type: String, required: true },
-  comment: { type: String, required: true },
+  text: { type: String, required: true },
+  comments: [{ type: mongoose.Types.ObjectId, ref: "Comment" }],
 });
 
 const Post = mongoose.model("Post", postSchema);

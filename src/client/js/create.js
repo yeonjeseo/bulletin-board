@@ -1,20 +1,20 @@
 const btnSubmit = document.getElementById("create");
 const titleInput = document.getElementById("input-title");
-const commentInput = document.getElementById("input-comment");
+const textInput = document.getElementById("input-comment");
 const passwordInput = document.getElementById("input-password");
 
 const handleSubmit = async (e) => {
   const title = titleInput.value;
-  const comment = commentInput.value;
+  const text = textInput.value;
   const password = passwordInput.value;
 
-  if (title !== "" && comment !== "" && password !== "") {
+  if (title !== "" && text !== "" && password !== "") {
     const commentObj = {
       title,
-      comment,
+      text,
       password,
     };
-    const response = await fetch("/postings", {
+    const response = await fetch("/api/postings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
 };
 
 const getUser = async () => {
-  const response = await fetch("/users/me", {
+  const response = await fetch("/api/users/me", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

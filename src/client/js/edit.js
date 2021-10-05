@@ -62,7 +62,7 @@ const handleDeleteSubmit = async () => {
 };
 
 const getUser = async () => {
-  const response = await fetch("/users/me", {
+  const response = await fetch("/api/users/me", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
