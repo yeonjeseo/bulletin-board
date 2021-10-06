@@ -1,3 +1,13 @@
+<script>
+  const handleLogout = () => {
+    localStorage.clear();
+    if(!localStorage.getItem("token")) {
+        window.alert("로그아웃 되었습니다.");
+        location.reload();
+    }
+}
+</script>
+
 <nav id="navbar">
   <div class="navbar__logo">
     <a href="/">Home</a>

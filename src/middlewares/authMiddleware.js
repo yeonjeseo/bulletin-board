@@ -18,8 +18,6 @@ export const authMiddleware = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (error) {
-    return res
-      .status(400)
-      .send({ msg: "토큰 값이 없음. 로그인 후 사용하세요." });
+    return res.status(400).send({ msg: "로그인이 필요한 기능입니다!" });
   }
 };

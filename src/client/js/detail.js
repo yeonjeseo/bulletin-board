@@ -1,7 +1,5 @@
 const commentBtn = document.getElementById("submitComment");
-
 const deleteCommentBtns = document.querySelectorAll(".comment-delete");
-console.log(deleteCommentBtns);
 
 // get the posting ID from url
 const url = window.location.pathname;
@@ -41,8 +39,13 @@ const handleSubmitComment = async () => {
   });
 
   const result = await response.json();
-  window.alert(result.msg);
-  window.location.reload();
+  if (response.status === 400) {
+    window.alert(result.msg);
+    location.href = "/login";
+  } else {
+    window.alert(result.msg);
+    window.location.reload();
+  }
 };
 
 const handleDeleteComment = async (event) => {
@@ -58,12 +61,13 @@ const handleDeleteComment = async (event) => {
   });
 
   const result = await response.json();
-  console.log(result);
+  window.alert(result.msg);
+  location.reload();
 };
 
 deleteCommentBtns.forEach((btn) =>
   btn.addEventListener("click", handleDeleteComment)
 );
 
-window.addEventListener("DOMContentLoaded", getUser);
+// window.addEventListener("DOMContentLoaded", getUser);
 commentBtn.addEventListener("click", handleSubmitComment);
