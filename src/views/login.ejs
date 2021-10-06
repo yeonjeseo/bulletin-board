@@ -15,27 +15,39 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- JavaScript -->
   <script defer src="/static/js/login.js"></script>
-  <title>Document</title>
+  <script>
+    const handleLogout = () => {
+      localStorage.clear();
+      if (!localStorage.getItem("token")) {
+        window.alert("로그아웃 되었습니다.");
+        location.reload();
+      }
+    }
+  </script>
+  <title>이것은 게시판</title>
 </head>
 
 <body>
   <%- include ('./partials/navbar.ejs') %>
-  
-  <section>
-    <div class="wrap">
-      <label for="basic-url" class="form-label">eMail</label>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="yourEmail@email.com" id="input-email">
-      </div>
 
-      <label for="basic-url" class="form-label">Password</label>
-      <div class="input-group mb-3">
-        <input type="text" id="input-password" class="form-control" placeholder="Password" height="500px">
-      </div>
+    <section>
+      <div class="wrap">
+        <label for="basic-url" class="form-label">eMail</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="yourEmail@email.com" id="input-email">
+        </div>
 
-      <input class="btn btn-primary" id="login" type="submit" value="로그인">
-    </div>
-  </section>
+        <label for="basic-url" class="form-label">Password</label>
+        <div class="input-group mb-3">
+          <input type="text" id="input-password" class="form-control" placeholder="Password" height="500px">
+        </div>
+
+        <input class="btn btn-primary" id="login" type="submit" value="로그인">
+        <a href="/signup">
+          <button type="button" class="btn btn-primary">회원가입</button>
+        </a>
+      </div>
+    </section>
 
 
 </body>

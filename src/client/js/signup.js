@@ -7,7 +7,7 @@ const handleSubmit = async (e) => {
   const confirmPassword = document.getElementById("input-confirm").value;
 
   const user = { username, email, password, confirmPassword };
-  const response = await fetch("/users", {
+  const response = await fetch("/api/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

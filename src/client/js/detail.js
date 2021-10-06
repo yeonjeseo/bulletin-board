@@ -1,5 +1,8 @@
 const commentBtn = document.getElementById("submitComment");
 
+const deleteCommentBtns = document.querySelectorAll(".comment-delete");
+console.log(deleteCommentBtns);
+
 // get the posting ID from url
 const url = window.location.pathname;
 const postingId = url.split("/")[2];
@@ -41,6 +44,26 @@ const handleSubmitComment = async () => {
   window.alert(result.msg);
   window.location.reload();
 };
+
+const handleDeleteComment = async (event) => {
+  const commentId = event.target.parentNode.dataset.commentid;
+
+  const response = await fetch(`/api/postings/${postingId}/comments`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({ commentId }),
+  });
+
+  const result = await response.json();
+  console.log(result);
+};
+
+deleteCommentBtns.forEach((btn) =>
+  btn.addEventListener("click", handleDeleteComment)
+);
 
 window.addEventListener("DOMContentLoaded", getUser);
 commentBtn.addEventListener("click", handleSubmitComment);

@@ -15,32 +15,41 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- JavaScript -->
   <script defer src="/static/js/create.js"></script>
-  <title>Document</title>
+  <script>
+    const handleLogout = () => {
+      localStorage.clear();
+      if (!localStorage.getItem("token")) {
+        window.alert("로그아웃 되었습니다.");
+        location.reload();
+      }
+    }
+  </script>
+  <title>이것은 게시판</title>
 </head>
 
 <body>
   <%- include ('./partials/navbar.ejs') %>
 
-  <section>
-    <div class="wrap">
-      <label for="basic-url" class="form-label">Title</label>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Title" id="input-title">
-      </div>
+    <section>
+      <div class="wrap">
+        <label for="basic-url" class="form-label">Title</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Title" id="input-title">
+        </div>
 
-      <label for="basic-url" class="form-label">Comment</label>
-      <div class="input-group mb-3">
-        <input type="text" id="input-comment" class="form-control" placeholder="Comment" height="500px">
-      </div>
+        <label for="basic-url" class="form-label">Comment</label>
+        <div class="input-group mb-3">
+          <input type="text" id="input-comment" class="form-control" placeholder="Comment" height="500px">
+        </div>
 
-      <label for="basic-url" class="form-label">Password</label>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Password" id="input-password">
-      </div>
+        <label for="basic-url" class="form-label">Password</label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Password" id="input-password">
+        </div>
 
-      <input class="btn btn-primary" id="create" type="submit" value="게시물 생성">
-    </div>
-  </section>
+        <input class="btn btn-primary" id="create" type="submit" value="게시물 생성">
+      </div>
+    </section>
 </body>
 
 </html>

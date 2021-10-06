@@ -18,8 +18,16 @@ const handleLoadContent = async () => {
             <h6 class="card-subtitle text-muted">${posting.author}</h6>
             <span class="card-subtitle text-muted">${posting.createdAt}</span>
             <p class="card-text p-y-1">${posting.text}</p>
-            <a href="/postings/${posting._id}/detail" class="card-link">상세페이지</a>
-            <a href="/postings/${posting._id}/edit" class="card-link">편집하기</a>
+            <a href="/postings/${posting._id}/detail" class="card-link">
+            <button type="button" class="btn btn-secondary btn-sm">
+            상세페이지
+            </button>
+            </a>
+            <a href="/postings/${posting._id}/edit" class="card-link">
+            <button type="button" class="btn btn-secondary btn-sm">
+            편집하기
+            </button>
+            </a>
         </div>
     </div>
 </div>

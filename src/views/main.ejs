@@ -17,7 +17,17 @@
     <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
     <!-- JavaScript -->
     <script defer src="/static/js/main.js"></script>
-    <title>Document</title>
+    <title>이것은 게시판</title>
+
+    <script>
+        const handleLogout = () => {
+            localStorage.clear();
+            if(!localStorage.getItem("token")) {
+                window.alert("로그아웃 되었습니다.");
+                location.reload();
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -33,7 +43,11 @@
                             <h6 class="card-subtitle text-muted">여긴 작성자</h6>
                             <span class="card-subtitle text-muted">언제 만들었는지?</span>
                             <p class="card-text p-y-1">Some quick example text to build on the card title .</p>
-                            <a href="#" class="card-link">상세페이지</a>
+                            <a href="#" class="card-link">
+                                <button type="button" class="btn btn-dark">
+                                    상세페이지
+                                </button>
+                            </a>
                             <a href="#" class="card-link">편집하기</a>
                         </div>
                     </div>

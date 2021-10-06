@@ -22,10 +22,11 @@ const handleUpdateSubmit = async () => {
     password,
   };
 
-  const response = await fetch(`/postings/${id}`, {
+  const response = await fetch(`/api/postings/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
     },
 
     body: JSON.stringify(updatedPost),
@@ -42,10 +43,11 @@ const handleUpdateSubmit = async () => {
 
 const handleDeleteSubmit = async () => {
   const password = document.getElementById("input-password").value;
-  const response = await fetch(`/postings/${id}`, {
+  const response = await fetch(`/api/postings/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
       password,

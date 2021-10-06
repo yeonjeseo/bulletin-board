@@ -25,101 +25,95 @@
         $(".reply-box").toggle();
       });
     });
+    const handleLogout = () => {
+      localStorage.clear();
+      if (!localStorage.getItem("token")) {
+        window.alert("로그아웃 되었습니다.");
+        location.reload();
+      }
+    }
   </script>
-  <title>상세페이지</title>
+  <title>이것은 게시판</title>
 </head>
 
 <body>
   <%- include ('./partials/navbar.ejs') %>
 
-  <main>
-    <div class="wrap">
-      <div class="card mb-3">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
-        <div class="card-body">
-          <h5 class="card-title" id="posting-title">제목 : <%= post.title %>
-          </h5>
-          <p class="card-text" id="posting-author">작성자 : <%= post.author %>
-          </p>
-          <p class="card-text" id="posting-comment">
-            <%= post.text %>
-          </p>
-          <p class="card-text"><small class="text-muted" id="posting-createdAt">
-              <%= post.createdAt %>
-            </small></p>
+    <main>
+      <div class="wrap">
+        <div class="card mb-3">
+          <!-- <img src="..." class="card-img-top" alt="..."> -->
+          <div class="card-body">
+            <h5 class="card-title" id="posting-title">제목 : <%= post.title %>
+            </h5>
+            <p class="card-text" id="posting-author">작성자 : <%= post.author %>
+            </p>
+            <p class="card-text" id="posting-comment">
+              <%= post.text %>
+            </p>
+            <p class="card-text"><small class="text-muted" id="posting-createdAt">
+                <%= post.createdAt %>
+              </small></p>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <div class="comments">
-            <div class="comment-box add-comment">
-              <span class="commenter-pic">
-                <img src="/static/img/user-icon.png" class="img-fluid">
-              </span>
-              <span class="commenter-name">
-                <input type="text" placeholder="Add a public comment" name="Add Comment" id="commentText">
-                <button type="submit" class="btn btn-default" id="submitComment">Comment</button>
-                <button type="cancel" class="btn btn-default">Cancel</button>
-              </span>
-            </div>
-
-            <% comments.forEach(function(comment){ %>
-              <div class="comment-box">
+        <div class="row">
+          <div class="col-12">
+            <div class="comments">
+              <div class="comment-box add-comment">
                 <span class="commenter-pic">
                   <img src="/static/img/user-icon.png" class="img-fluid">
                 </span>
                 <span class="commenter-name">
-                  <span class="author">
-                    <%= comment.author.username %>
-                  </span>
-                  <span class="comment-time">
-                    <%= comment.createdAt %>
-                  </span>
+                  <input type="text" placeholder="Add a public comment" name="Add Comment" id="commentText">
+                  <button type="submit" class="btn btn-default" id="submitComment">Comment</button>
+                  <button type="cancel" class="btn btn-default">Cancel</button>
                 </span>
-                <p class="comment-txt more">
-                  <%= comment.text %>
-                </p>
-                <div class="comment-meta">
-                  <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
-                  <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
-                  <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i>
-                    Reply</button>
-                </div>
-                <div class="comment-box add-comment reply-box">
-                  <span class="commenter-pic">
-                    <img src="/static/img/user-icon.png" class="img-fluid">
-                  </span>
-                  <span class="commenter-name">
-                    <input type="text" placeholder="Add a public reply" name="Add Comment">
-                    <button type="submit" class="btn btn-default">Reply</button>
-                    <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
-                  </span>
-                </div>
               </div>
 
-              <% }) %>
+              <% comments.forEach(function(comment){ %>
                 <div class="comment-box">
                   <span class="commenter-pic">
                     <img src="/static/img/user-icon.png" class="img-fluid">
                   </span>
                   <span class="commenter-name">
-                    <span href="#">Happy markuptag</span> <span class="comment-time">2 hours ago</span>
+                    <span class="author">
+                      <%= comment.author.username %>
+                    </span>
+                    <span class="comment-time">
+                      <%= comment.createdAt %>
+                    </span>
                   </span>
-                  <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit
-                    amet
-                    ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-                  <div class="comment-meta">
+                  <p class="comment-txt more">
+                    <%= comment.text %>
+                  </p>
+                  <div class="comment-meta" data-commentid="<%= comment._id %>">
                     <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
                     <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 149</button>
-                    <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                    <button class="comment-reply reply-popup"><i class="fa fa-reply-all" aria-hidden="true"></i>
+                      Reply</button>
+                    <button class="comment-delete"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 삭제</button>
+                    <button class="comment-edit"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> 수정</button>
                   </div>
-                  <div class="comment-box replied">
+                  <div class="comment-box add-comment reply-box">
                     <span class="commenter-pic">
                       <img src="/static/img/user-icon.png" class="img-fluid">
                     </span>
                     <span class="commenter-name">
-                      <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+                      <input type="text" placeholder="Add a public reply" name="Add Comment">
+                      <button type="submit" class="btn btn-default">Reply</button>
+                      <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
+                    </span>
+                  </div>
+                </div>
+
+                <% }) %>
+                  <div class="comment-box">
+                    <span class="commenter-pic">
+                      <img src="/static/img/user-icon.png" class="img-fluid">
+                    </span>
+                    <span class="commenter-name">
+                      <span href="#">Happy markuptag</span> <span class="comment-time">2 hours ago</span>
                     </span>
                     <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit
                       amet
@@ -130,14 +124,31 @@
                         149</button>
                       <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
                     </div>
+                    <div class="comment-box replied">
+                      <span class="commenter-pic">
+                        <img src="/static/img/user-icon.png" class="img-fluid">
+                      </span>
+                      <span class="commenter-name">
+                        <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
+                      </span>
+                      <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar
+                        sit
+                        amet
+                        ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
+                      <div class="comment-meta">
+                        <button class="comment-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 99</button>
+                        <button class="comment-dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                          149</button>
+                        <button class="comment-reply"><i class="fa fa-reply-all" aria-hidden="true"></i> Reply</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+            </div>
           </div>
         </div>
-      </div>
 
-    </div>
-  </main>
+      </div>
+    </main>
 </body>
 
 </html>

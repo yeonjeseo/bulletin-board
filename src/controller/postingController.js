@@ -39,8 +39,10 @@ export const getDetail = async (req, res) => {
 // CRUD : C
 export const postPostings = async (req, res) => {
   const { title, text } = req.body;
-  const author = res.locals.user.username;
-  console.log(author);
+  // const { user } = res.locals;
+  // const author = res.locals.user.username;
+
+  const { _id: userId, username: author } = res.locals.user;
   let password = req.body.password;
 
   password = await bcrypt.hash(password, 5);
@@ -52,7 +54,9 @@ export const postPostings = async (req, res) => {
     password,
   };
 
-  await Post.create(post);
+  const newPosting = await Post.create(post);
+
+  await User.findByIdAndUpdate(userId, { $push: { postings: newPosting._id } });
 
   return res.send({ result: "success" });
 };
@@ -162,4 +166,36 @@ export const postComment = async (req, res) => {
 
 export const getComments = async (req, res) => {
   console.log(req.params);
+};
+
+export const deleteComment = async (req, res) => {
+  // 현재 로그인 유저가, 댓글의 작성자랑 같은지 비교하려면 우선
+  // 데이터 가져와서 정리
+  // DB 조회
+  const {
+    body: { commentId },
+    params: { id: postingId },
+  } = req;
+  const { user } = res.locals;
+  const userId = user._id;
+
+  try {
+    // 댓글 작성자를 확인하기 위해 해당 댓글 조회
+    const comment = await Comment.findById(commentId);
+    // 댓글 작성자랑, 현재 로그인한 사람 id 비교
+    // 본인이 작성한 글이 아니면,
+    if (!comment.author.equals(userId))
+      return res
+        .status(400)
+        .send({ msg: "본인이 작성한 댓글만 삭제할 수 있습니다." });
+    //댓글 document 삭제
+    comment.delete();
+    // User 모델 배열에서 삭제
+    await User.findByIdAndUpdate(userId, { $pull: { comments: commentId } });
+    // Post 모델 배열에서도 삭제
+    await Post.findByIdAndUpdate(postingId), { $pull: { comments: commentId } };
+    return res.status(200).send({ msg: "삭제 성공!!" });
+  } catch (error) {
+    return res.status(500).send({ msg: "서버 오류입니다." });
+  }
 };

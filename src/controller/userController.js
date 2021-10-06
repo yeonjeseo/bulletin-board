@@ -69,7 +69,7 @@ export const postAuth = async (req, res) => {
 
   // check if pw matches
   const isPwMatched = await bcrypt.compare(password, user.password);
-  // return is pw not matches
+  // return if pw not matches
   if (!isPwMatched)
     return res
       .status(400)
@@ -81,6 +81,7 @@ export const postAuth = async (req, res) => {
 };
 
 export const getMe = async (req, res) => {
+  console.log(res.locals.user);
   const userId = res.locals.user._id;
   return res.status(200).send({
     userId,
