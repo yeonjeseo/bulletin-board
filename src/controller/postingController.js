@@ -101,16 +101,43 @@ export const patchPostings = async (req, res) => {
 
 // CRUD : D
 export const deletePostings = async (req, res) => {
+  // 데이터 받기
   const { password } = req.body;
   const { id } = req.params;
 
+  //사용자 정보 얻기
+  // 미들웨어를 타니까 res.locals에서...
+  const { username, _id: userId } = res.locals.user;
+
   const post = await Post.findById(id);
 
-  const isMatched = await bcrypt.compare(password, post.password);
+  // 1. 로그인한 사용자가 포스팅 주인인지 확인
+  if (post.author !== username)
+    return res.status(400).send({ msg: "본인의 게시물이 아닙니다." });
 
+  // 2. 주인 맞으면 비밀번호 확인
+  const isMatched = await bcrypt.compare(password, post.password);
   if (isMatched) {
+    // 3. 비밀번호 맞으면
     try {
+      //Post에서 삭제
       await Post.deleteOne(post);
+      // User postings에서 삭제
+      const user = await User.findById(userId).populate("comments");
+      console.log(user.comments[0].ownedPosting);
+      await user.updateOne({ $pull: { postings: id } });
+      await user.updateOne({ $pullAll: { comments: { ownedPosting: id } } });
+      // await User.findByIdAndUpdate(userId, { $pull: { postings: id } });
+      // User comments에서 삭제
+      // await User.findById(userId)
+      //   .populate("comments")
+      //   .updateOne({ $pullAll: { comments: { ownedPosting: id } } });
+      // await User.findById(userId)
+      //   .populate("comments")
+      //   .updateOne({ comments: { $pull: { ownedPosting: id } } });
+
+      //댓글들 중에서 postingId에 종속되는 모든 댓글 삭제
+      await Comment.find({ ownedPosting: id }).remove();
       // await Post.findByIdAndRemove(id);
       return res
         .status(200)
@@ -193,7 +220,7 @@ export const deleteComment = async (req, res) => {
     // User 모델 배열에서 삭제
     await User.findByIdAndUpdate(userId, { $pull: { comments: commentId } });
     // Post 모델 배열에서도 삭제
-    await Post.findByIdAndUpdate(postingId), { $pull: { comments: commentId } };
+    await Post.findByIdAndUpdate(postingId, { $pull: { comments: commentId } });
     return res.status(200).send({ msg: "삭제 성공!!" });
   } catch (error) {
     return res.status(500).send({ msg: "서버 오류입니다." });
