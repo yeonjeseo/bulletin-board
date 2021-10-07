@@ -7,6 +7,7 @@ import {
   postComment,
   getComments,
   deleteComment,
+  patchComment,
 } from "../controller/postingController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 const postingRouter = express.Router();
@@ -27,7 +28,8 @@ postingRouter
   .route("/:id/comments")
   .post(authMiddleware, postComment)
   .get(authMiddleware, getComments)
-  .delete(authMiddleware, deleteComment);
+  .delete(authMiddleware, deleteComment)
+  .patch(authMiddleware, patchComment);
 // postingRouter.post("/:id/comments", authMiddleware, postComment);
 
 export default postingRouter;

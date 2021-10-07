@@ -50,5 +50,6 @@ const getUser = async () => {
     location.href = "/login";
   }
 };
+
 window.addEventListener("DOMContentLoaded", getUser);
 btnSubmit.addEventListener("click", handleSubmit);

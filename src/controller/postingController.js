@@ -1,6 +1,7 @@
 import Post from "../models/Post.js";
 import Comment from "../models/Comment.js";
 import bcrypt from "bcrypt";
+import { uniqueSort } from "domutils";
 
 export const home = async (req, res) => {
   return res.render("main");
@@ -178,7 +179,6 @@ export const deleteComment = async (req, res) => {
 
   try {
     // 댓글 작성자를 확인하기 위해 해당 댓글 조회
-    console.log("조회");
     const comment = await Comment.findById(commentId);
     // 댓글 작성자랑, 현재 로그인한 사람 id 비교
     // 본인이 작성한 글이 아니면,
@@ -186,12 +186,36 @@ export const deleteComment = async (req, res) => {
       return res
         .status(400)
         .send({ msg: "본인이 작성한 댓글만 삭제할 수 있습니다." });
-    console.log("지우기 전");
 
     //댓글 document 삭제
     comment.delete();
     return res.status(200).send({ msg: "삭제 성공!!" });
   } catch (error) {
+    return res.status(500).send({ msg: "서버 오류입니다." });
+  }
+};
+
+export const patchComment = async (req, res) => {
+  const { text, commentId } = req.body;
+  const { username } = res.locals.user;
+
+  // 지금 로그인한 사람이 댓글 작성자가 맞는지 확인
+  try {
+    const comment = await Comment.findById(commentId);
+    console.log(comment);
+    if (username !== comment.author)
+      return res
+        .status(400)
+        .send({ msg: "본인이 작성한 댓글만 수정할 수 있습니다." });
+
+    //본인 댓글이 맞으면 수정
+    await Comment.updateOne(comment, {
+      $set: { text },
+    });
+
+    return res.status(200).send({ msg: "댓글 수정 완료!" });
+  } catch (error) {
+    console.log(error);
     return res.status(500).send({ msg: "서버 오류입니다." });
   }
 };

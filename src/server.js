@@ -16,7 +16,7 @@ app.set("views", process.cwd() + "/views");
 
 // serve local files to virtual browser file system
 app.use("/static", express.static("client"));
-
+// app.use("/", express.static("public"));
 app.use("/", renderRouter);
 app.use("/api/postings", postingsRouter);
 app.use("/api/users", usersRouter);

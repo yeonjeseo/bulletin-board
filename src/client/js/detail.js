@@ -1,5 +1,7 @@
 const commentBtn = document.getElementById("submitComment");
 const deleteCommentBtns = document.querySelectorAll(".comment-delete");
+const editCommentBtns = document.querySelectorAll(".comment-edit");
+const confirmEditBtns = document.querySelectorAll(".confirm-edit");
 
 // get the posting ID from url
 const url = window.location.pathname;
@@ -65,9 +67,52 @@ const handleDeleteComment = async (event) => {
   location.reload();
 };
 
+const changeInputForm = () => {
+  // 현재 댓글에 있는 텍스트를 임시로 저장
+  let tempText = "DASDSA";
+  //p 태그를 지우고,
+
+  //textarea로 바꾸고
+
+  //내용물을 tempTexp 바꿔주는
+};
+
+const handleEditComment = async (event) => {
+  const text = event.target.previousSibling.previousSibling.value;
+  const commentId =
+    event.target.parentNode.nextSibling.nextSibling.dataset.commentid;
+
+  const newComment = {
+    text,
+    commentId,
+  };
+
+  const response = await fetch(`/api/postings/${postingId}/comments`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(newComment),
+  });
+
+  const result = await response.json();
+  if (response.status === 200) {
+    window.alert(result.msg);
+    location.reload();
+  } else {
+    window.alert(result.msg);
+  }
+};
+
+commentBtn.addEventListener("click", handleSubmitComment);
 deleteCommentBtns.forEach((btn) =>
   btn.addEventListener("click", handleDeleteComment)
 );
+window.addEventListener("DOMContentLoaded", getUser);
+confirmEditBtns.forEach((btn) =>
+  btn.addEventListener("click", handleEditComment)
+);
 
-// window.addEventListener("DOMContentLoaded", getUser);
-commentBtn.addEventListener("click", handleSubmitComment);
+// $(document).on("click", ".test1", function () {
+// });
