@@ -7,7 +7,7 @@ const handleUpdateSubmit = async () => {
   //템플릿에서 데이터 가져오기
   const title = document.getElementById("input-title").value;
   const author = document.getElementById("input-author").value;
-  const comment = document.getElementById("input-comment").value;
+  const text = document.getElementById("input-comment").value;
   const password = document.getElementById("input-password").value;
 
   if (password === "") {
@@ -18,7 +18,7 @@ const handleUpdateSubmit = async () => {
   const updatedPost = {
     title,
     author,
-    comment,
+    text,
     password,
   };
 
@@ -33,7 +33,6 @@ const handleUpdateSubmit = async () => {
   });
 
   if (response.status === 400) {
-    // const result = await response.json();
     window.alert((await response.json()).msg);
   } else {
     window.alert((await response.json()).msg);
@@ -63,21 +62,5 @@ const handleDeleteSubmit = async () => {
   }
 };
 
-const getUser = async () => {
-  const response = await fetch("/api/users/me", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
-
-  if (response.status === 400) {
-    window.alert("로그인이 필요합니다.");
-    location.href = "/login";
-  }
-};
-
-window.addEventListener("DOMContentLoaded", getUser);
 updateBtn.addEventListener("click", handleUpdateSubmit);
 deleteBtn.addEventListener("click", handleDeleteSubmit);

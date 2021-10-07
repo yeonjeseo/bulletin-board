@@ -108,6 +108,11 @@ const handleEditComment = async (event) => {
 const handleHideShow = (event) => {
   const editContainer = event.target.parentNode.previousSibling.previousSibling;
   editContainer.classList.toggle("hide");
+
+  const typoContainer =
+    event.target.parentNode.previousSibling.previousSibling.previousSibling
+      .previousSibling.previousSibling.previousSibling;
+  typoContainer.classList.toggle("hide");
 };
 
 window.addEventListener("DOMContentLoaded", getUser);

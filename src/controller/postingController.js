@@ -70,14 +70,20 @@ export const readAllPostings = async (req, res) => {
 // CRUD : U
 export const patchPostings = async (req, res) => {
   const { title, text, password } = req.body;
+  console.log(title, text);
   const { id } = req.params;
+  const { user } = res.locals;
 
   const post = await Post.findById(id);
-  // compare pw
+  // 비밀번호 확인
   const isMatched = await bcrypt.compare(password, post.password);
-  // const isMatched =  bcrypt.compareSync(password, post.password);
-
   if (isMatched) {
+    //업데이트 전 로그인 사용자랑 게시글 주인 비교
+    if (user.username !== post.author)
+      return res
+        .status(400)
+        .send({ msg: "본인이 작성한 게시글만 수정할 수 있습니다." });
+
     try {
       await Post.updateOne(post, {
         $set: {
@@ -85,6 +91,7 @@ export const patchPostings = async (req, res) => {
           text,
         },
       });
+
       return res
         .status(200)
         .send({ result: "success", msg: "수정 완료되었습니다." });
@@ -147,13 +154,13 @@ export const postComment = async (req, res) => {
     params: { id: postingId },
   } = req;
   const { username: author } = res.locals.user;
-  // const userId = res.locals.user._id;
 
   const comment = {
     ownedPosting: postingId,
     author,
     text,
   };
+
   try {
     //2. Comment 모델에 저장
     await Comment.create(comment);

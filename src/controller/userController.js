@@ -81,7 +81,6 @@ export const postAuth = async (req, res) => {
 };
 
 export const getMe = async (req, res) => {
-  console.log(res.locals.user);
   const userId = res.locals.user._id;
   return res.status(200).send({
     userId,
