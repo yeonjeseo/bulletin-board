@@ -215,3 +215,7 @@ a:active {
     margin-left: 0px;
   }
 }
+
+.hide {
+  display: none;
+}

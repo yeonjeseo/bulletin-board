@@ -105,14 +105,21 @@ const handleEditComment = async (event) => {
   }
 };
 
+const handleHideShow = (event) => {
+  const editContainer = event.target.parentNode.previousSibling.previousSibling;
+  editContainer.classList.toggle("hide");
+};
+
+window.addEventListener("DOMContentLoaded", getUser);
 commentBtn.addEventListener("click", handleSubmitComment);
 deleteCommentBtns.forEach((btn) =>
   btn.addEventListener("click", handleDeleteComment)
 );
-window.addEventListener("DOMContentLoaded", getUser);
 confirmEditBtns.forEach((btn) =>
   btn.addEventListener("click", handleEditComment)
 );
-
+editCommentBtns.forEach((btn) => {
+  btn.addEventListener("click", handleHideShow);
+});
 // $(document).on("click", ".test1", function () {
 // });
