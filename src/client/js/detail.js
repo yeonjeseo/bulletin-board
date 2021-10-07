@@ -113,6 +113,8 @@ const handleHideShow = (event) => {
     event.target.parentNode.previousSibling.previousSibling.previousSibling
       .previousSibling.previousSibling.previousSibling;
   typoContainer.classList.toggle("hide");
+
+  // $("#123").toggleClass("hide");
 };
 
 window.addEventListener("DOMContentLoaded", getUser);
@@ -123,8 +125,10 @@ deleteCommentBtns.forEach((btn) =>
 confirmEditBtns.forEach((btn) =>
   btn.addEventListener("click", handleEditComment)
 );
+
 editCommentBtns.forEach((btn) => {
   btn.addEventListener("click", handleHideShow);
 });
+
 // $(document).on("click", ".test1", function () {
 // });

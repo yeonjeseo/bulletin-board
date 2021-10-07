@@ -25,3 +25,11 @@ const handleSubmit = async (e) => {
 };
 
 btnSubmit.addEventListener("click", handleSubmit);
+
+function eotrmfTnwjd() {
+  $.ajax({
+    type: "PATCH",
+    url: "/apifsdfsfsdf",
+    data: { data: "data" },
+  });
+}

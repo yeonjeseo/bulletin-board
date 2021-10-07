@@ -32,8 +32,14 @@ export const getDetail = async (req, res) => {
   const comments = await Comment.find({ ownedPosting: id }).sort({
     createdAt: -1,
   });
-  console.log(comments);
+
+  console.log(post.createdAt);
+
   return res.render("detail", { post, comments });
+};
+
+const dateConversion = (date) => {
+  const yyyy = date.getYear;
 };
 
 // CRUD : C
@@ -206,10 +212,10 @@ export const patchComment = async (req, res) => {
   const { text, commentId } = req.body;
   const { username } = res.locals.user;
 
-  // 지금 로그인한 사람이 댓글 작성자가 맞는지 확인
   try {
     const comment = await Comment.findById(commentId);
-    console.log(comment);
+
+    // 지금 로그인한 사람이 댓글 작성자가 맞는지 확인
     if (username !== comment.author)
       return res
         .status(400)

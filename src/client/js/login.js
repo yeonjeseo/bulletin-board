@@ -5,6 +5,7 @@ const handleSubmit = async (e) => {
   const password = document.getElementById("input-password").value;
 
   const user = { email, password };
+
   const response = await fetch("/api/users/auth", {
     method: "POST",
     headers: {
