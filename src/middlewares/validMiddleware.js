@@ -11,7 +11,7 @@ export const validateSignUp = async (req, res, next) => {
         username.includes(password) || password.includes(username);
       if (isIncluded)
         return res
-          .status(406)
+          .status(400)
           .send({ msg: "Username 과 Password에 중복이 있습니다." });
     }
 
