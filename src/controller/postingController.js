@@ -1,7 +1,6 @@
 import Post from "../models/Post.js";
 import Comment from "../models/Comment.js";
 import bcrypt from "bcrypt";
-import { uniqueSort } from "domutils";
 
 export const home = async (req, res) => {
   return res.render("main");
@@ -32,8 +31,6 @@ export const getDetail = async (req, res) => {
   const comments = await Comment.find({ ownedPosting: id }).sort({
     createdAt: -1,
   });
-
-  console.log(post.createdAt);
 
   return res.render("detail", { post, comments });
 };
@@ -186,7 +183,6 @@ export const deleteComment = async (req, res) => {
   // DB 조회
   const {
     body: { commentId },
-    params: { id: postingId },
   } = req;
   const { username } = res.locals.user;
 

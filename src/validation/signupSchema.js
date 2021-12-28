@@ -7,7 +7,7 @@ const signUpSchema = Joi.object({
   username: Joi.string().regex(usernameRegExp),
   email: Joi.string().regex(emailRegExp).required(),
   password: Joi.string().min(4).required(),
-  confirmPassword: Joi.string(),
+  confirmPassword: Joi.string().valid(Joi.ref("password")),
 });
 
 export default signUpSchema;

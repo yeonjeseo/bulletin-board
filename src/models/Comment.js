@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
-  ownedPosting: { type: mongoose.Types.ObjectId, required: true },
+  ownedPosting: { type: mongoose.Types.ObjectId, required: true, ref: "Post" },
   author: { type: String, required: true },
   text: { type: String, required: true },
   createdAt: { type: Date, default: Date.now, required: true },

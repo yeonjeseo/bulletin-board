@@ -32,12 +32,14 @@ const handleUpdateSubmit = async () => {
     body: JSON.stringify(updatedPost),
   });
 
-  if (response.status === 400) {
-    window.alert((await response.json()).msg);
-  } else {
-    window.alert((await response.json()).msg);
-    location.reload();
-  }
+  window.alert((await response.json()).msg);
+  location.href = "/";
+  // if (response.status === 400) {
+  //   window.alert((await response.json()).msg);
+  // } else {
+  //   window.alert((await response.json()).msg);
+  //   location.reload();
+  // }
 };
 
 const handleDeleteSubmit = async () => {
@@ -55,11 +57,12 @@ const handleDeleteSubmit = async () => {
 
   const result = await response.json();
   window.alert(result.msg);
-  if (response.status === 200) {
-    location.href = "/";
-  } else {
-    return;
-  }
+  location.href = "/";
+
+  // if (response.status === 200) {
+  // } else {
+  //   return;
+  // }
 };
 
 updateBtn.addEventListener("click", handleUpdateSubmit);
